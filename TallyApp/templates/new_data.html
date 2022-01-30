@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section p-5 mx-auto my-auto">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{title}}</legend>
+                <div class="form-group p-2">
+                    {{ form.category.label(class="form-control-label") }}
+                    {% if form.category.errors %}
+                        {{ form.category(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.category.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.category(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group p-2">
+                    {{ form.notes.label(class="form-control-label") }}
+                    {% if form.notes.errors %}
+                        {{ form.notes(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.notes.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.notes(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group p-2">
+                    {{ form.cost.label(class="form-control-label") }}
+                    {% if form.cost.errors %}
+                        {{ form.cost(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.cost.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.cost(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group p-2">
+                    {{ form.date_added.label(class="form-control-label") }}
+                    {% if form.date_added.errors %}
+                        {{ form.date_added(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.date_added.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.date_added(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group my-5">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

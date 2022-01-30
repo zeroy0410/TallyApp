@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="p-5 bg-dark text-light text-center text-sm-start">
+    <div class="container">
+        <div class="d-flex">
+            <div>
+                <h1>
+                    <span class="text-warning">一站式</span>记账解决方案
+                </h1>
+                <p class="my-4">
+                    赶快注册使用Z-Tally，方便地记录下每一笔开支，获取可视化数据图表，合理规划收支！
+                </p>
+                <a href="{{url_for('register')}}" class="btn btn-primary btn-lg">
+                    注册
+                </a>
+            </div>
+            <img src="../static/img/1.jpg" alt="1" class="w-25 d-none d-md-block rounded-circle">
+        </div>
+    </div>
+</section>
+<section class="p-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card bg-secondary text-light">
+                    <div class="card-body text-center">
+                        <img src="../static/img/upload.svg" alt="upload" class="w-25 mb-3">
+                        <div class="card-title h3">数据上传</div>
+                        <div class="card-text">一键上传你的数据，方便快捷。</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card bg-secondary text-light">
+                    <div class="card-body text-center">
+                        <img src="../static/img/run.svg" alt="upload" class="w-25 mb-3">
+                        <div class="card-title h3">数据处理</div>
+                        <div class="card-text">Python后端处理数据，功能强大。</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card bg-secondary text-light">
+                    <div class="card-body text-center">
+                        <img src="../static/img/visiable.svg" alt="upload" class="w-25 mb-3">
+                        <div class="card-title h3">数据可视化</div>
+                        <div class="card-text">知名可视化引擎pyecharts渲染图表</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card bg-secondary text-light">
+                    <div class="card-body text-center">
+                        <img src="../static/img/download.svg" alt="upload" class="w-25 mb-3">
+                        <div class="card-title h3">数据导出</div>
+                        <div class="card-text">一键导出json数据</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="p-5 bg-dark text-light text-center text-sm-start">
+    <div class="container">
+        <div class="d-flex">
+            <div class="div">
+                <h2><span class="text-warning">温馨提示:</span></h2>
+                <p>
+                    本产品为zeroy一人开发，且数据较为敏感，若出现安全问题，作者概不负责！
+                </p>
+            </div>
+            <img src="../static/img/zeroy.jpg" alt="zeroy" class="w-25 rounded-circle">
+        </div>
+    </div>
+</section>
+<section class="p-5">
+    <div class="container">
+        <h2 class="text-center mb-4">联系我</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">电话：不告诉你</li>
+            <li class="list-group-item">邮箱： 2020150384@qq.com</li>
+            <li class="list-group-item">地址：西安电子科技大学南校区</li>
+        </ul>
+    </div>
+</section>
+<footer class="p-5 bg-dark text-white text-center">
+    <div class="container">
+        <p class="lead">Copyright &copy; 2022 zeroy</p>
+    </div>
+</footer>
+{% endblock content %}

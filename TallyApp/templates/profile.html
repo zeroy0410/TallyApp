@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<script src="../static/echarts.js"></script>
+<div class="container p-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">收支</th>
+                <th scope="col">类别</th>
+                <th scope="col">金额</th>
+                <th scope="col">备注</th>
+                <th scope="col">日期</th>
+                <th scope="col">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for data in datas%}
+                <tr>
+                    <th scope="row">{{datas.index(data)+1}}</th>
+                    <td>{{op[data.option]}}</td>
+                    <td>{{cate[data.option][data.category]}}</td>
+                    <td>{{data.cost}}</td>
+                    <td>{{data.notes}}</td>
+                    <td>{{data.date_added.date()}}</td>
+                    <td>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_data', data_id=data.id,opti=data.option) }}">修改</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ url_for('delete_data', data_id=data.id) }}">删除</a>
+                    </td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="container p-5">
+        <div class="row">
+            <div class="col">
+                总计：{{sum}}
+            </div>
+        </div>
+    </div>
+</div>
+<section class="p-5 m-auto">
+    <div class="container">
+        <div class="d-lg-flex align-items-center">
+            <div class="row">
+                <div class="col">
+                    <div id="pie1" class="w-25" style="height: 400px;width: 600px;"></div>
+                </div>
+                <div class="col">
+                    <div id="pie2" class="w-25" style="height: 400px;width: 600px;"></div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                var myChart=echarts.init(document.getElementById('pie1'));
+                var option= {{pie1 | safe}};
+                myChart.setOption(option);
+            </script>
+            <script type="text/javascript">
+                var myChart=echarts.init(document.getElementById('pie2'));
+                var option= {{pie2 | safe}};
+                myChart.setOption(option);
+            </script>
+        </div>
+    </div>
+</section>
+{% endblock content %}
