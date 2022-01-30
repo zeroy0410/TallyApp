@@ -43,7 +43,7 @@
     <div class="container p-5">
         <div class="row">
             <div class="col">
-                总计：{{sum}}
+                总计:{{sum}}
             </div>
         </div>
     </div>
@@ -61,12 +61,12 @@
             </div>
             <script type="text/javascript">
                 var myChart=echarts.init(document.getElementById('pie1'));
-                var option= {{pie1 | safe}};
+                var option= {{pie1|safe}};
                 myChart.setOption(option);
             </script>
             <script type="text/javascript">
                 var myChart=echarts.init(document.getElementById('pie2'));
-                var option= {{pie2 | safe}};
+                var option= {{pie2|safe}};
                 myChart.setOption(option);
             </script>
         </div>
