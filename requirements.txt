@@ -1,0 +1,12 @@
+flask
+gunicorn
+gevent
+datetime
+flask_login
+flask_wtf
+wtforms
+pyecharts
+sqlalchemy
+flask_sqlalchemy
+flask_bcrypt
+email_validator

@@ -1,9 +1,8 @@
 from datetime import datetime
-from email.policy import default
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField,BooleanField,IntegerField,SelectField,DateField
 from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError
-from TallyApp.models import User,Data
+from TallyApp.models import User
 
 class RegistrationForm(FlaskForm):
     username=StringField('用户名',validators=[DataRequired(),Length(min=5,max=20)])

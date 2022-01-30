@@ -1,4 +1,3 @@
-from unicodedata import category
 from flask import redirect, render_template,url_for,flash,request,abort
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func
@@ -6,7 +5,6 @@ from TallyApp.forms import LoginForm, RegistrationForm,DataForm
 from TallyApp.models import User,Data
 from TallyApp import db,app,bcrypt
 from pyecharts.charts import Pie 
-import numpy as np
 
 @app.route("/")
 @app.route("/home")
