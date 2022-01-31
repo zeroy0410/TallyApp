@@ -1,7 +1,9 @@
 from datetime import datetime
+# from msilib.schema import File
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField,BooleanField,IntegerField,SelectField,DateField,FloatField
 from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError
+from flask_wtf.file import FileField,FileAllowed
 from TallyApp.models import User
 
 class RegistrationForm(FlaskForm):
@@ -32,4 +34,8 @@ class DataForm(FlaskForm):
     cost=FloatField('金额',validators=[DataRequired()])
     category=SelectField('分类',validators=[],default=1,coerce=int)
     date_added=DateField('日期',default=datetime.utcnow)
+    submit=SubmitField('提交')
+
+class UploadForm(FlaskForm):
+    file_=FileField('上传文件',validators=[FileAllowed(['xlsx'])])
     submit=SubmitField('提交')

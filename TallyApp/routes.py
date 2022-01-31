@@ -1,10 +1,12 @@
-from flask import redirect, render_template,url_for,flash,request,abort
+from flask import redirect, render_template,url_for,flash,request,abort,send_file
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func
-from TallyApp.forms import LoginForm, RegistrationForm,DataForm
+from TallyApp.forms import LoginForm, RegistrationForm,DataForm, UploadForm
 from TallyApp.models import User,Data
 from TallyApp import db,app,bcrypt
 from pyecharts.charts import Pie 
+import os
+import pandas as pd
 
 @app.route("/")
 @app.route("/home")
@@ -133,3 +135,44 @@ def delete_data(data_id):
     db.session.commit()
     flash('删除数据成功', 'success')
     return redirect(url_for('profile'))
+
+@app.route("/download",methods=['GET','POST'])
+@login_required
+def download():
+    datas=Data.query.filter_by(owner=current_user).all()
+    categories=[]
+    noteses=[]
+    costs=[]
+    date_addeds=[]
+    options=[]
+    for data in datas:
+        categories.append(data.category)
+        noteses.append(data.notes)
+        costs.append(data.cost)
+        options.append(data.option)
+        date_addeds.append(data.date_added)
+    dic={"收支":options,"分类":categories,"数目":costs,"备注":noteses,"日期":date_addeds}
+    df = pd.DataFrame(dic)
+    save_pat=os.path.join(app.root_path,'dynamic',str(current_user.id)+'.xlsx')
+    df.to_excel(save_pat)
+    return send_file(save_pat)
+    # return redirect(url_for('profile'))
+
+@app.route("/upload",methods=['GET','POST'])
+@login_required
+def upload():
+    form=UploadForm()
+    if form.validate_on_submit():
+        save_pat=os.path.join(app.root_path,'dynamic',str(current_user.id)+'temp.xlsx')
+        form.file_.data.save(save_pat)
+        print(save_pat)
+        df=pd.read_excel(save_pat)
+        for item in df.itertuples():
+            tmp=str(item[5])
+            if tmp=='nan':
+                tmp=''
+            data=Data(option=item[2],category=item[3],cost=item[4],notes=tmp,date_added=item[6],owner=current_user)
+            db.session.add(data)
+            db.session.commit()
+        return redirect(url_for('profile'))
+    return render_template('Upload.html',form=form,title="上传Excel xslx文件")

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="p-5">
+    <div class="container">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{title}}</legend>
+                <div class="form-group p-2">
+                    {{ form.file_.label(class="form-control-label") }}
+                    {% if form.file_.errors %}
+                        {{ form.file_(class="form-control-file form-control-file-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.file_.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.file_(class="form-control-file form-control-file-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group p-2">
+                    {{form.submit(class="btn btn-outline-info")}}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
+{% endblock content %}

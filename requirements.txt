@@ -10,3 +10,5 @@ sqlalchemy
 flask_sqlalchemy
 flask_bcrypt
 email_validator
+pandas
+openpyxl
