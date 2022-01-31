@@ -53,9 +53,7 @@ def getPie(opti):
     addrs=db.session.query(Data.category,func.sum(Data.cost)).filter_by(option=opti).group_by(Data.category).all()
     lis=[0,0,0,0,0]
     for addr in addrs:
-        lis[addr[0]-1]=addr[1]
-    print(cate[opti][1:6],lis)
-    print([list(z) for z in zip(cate[opti][1:6],lis)])
+        lis[addr[0]-1]=float("%.2f" % addr[1])
     pie=Pie()
     pie.add("",[list(z) for z in zip(cate[opti][1:6],lis)])
     return pie
@@ -65,14 +63,15 @@ def getPie(opti):
 def profile():
     op=['','支出','收入']
     datas=Data.query.filter_by(owner=current_user).order_by(Data.date_added.desc()).all()
-    Sum=db.session.query(func.sum(Data.cost)).all()
-    sum=0
-    if Sum:
+    Sum=db.session.query(func.sum(Data.cost)).filter_by(owner=current_user).all()
+    sum=float(0)
+    if Sum[0][0]:
         sum=Sum[0][0]
     for data in datas:
         data.cost=abs(data.cost)
     pie1=getPie(1)
     pie2=getPie(2)
+    sum=float("%.2f" % sum)
     return render_template("profile.html",datas=datas,op=op,cate=cate,sum=sum,pie1=pie1.dump_options(),pie2=pie2.dump_options())
 
 @app.route("/data/new/<int:opti>", methods=['GET','POST'])

@@ -21,7 +21,7 @@ class Data(db.Model):
     category=db.Column(db.Integer,nullable=True)
     date_added=db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
     notes=db.Column(db.String(100),nullable=True)
-    cost=db.Column(db.Integer,nullable=False)
+    cost=db.Column(db.Float,nullable=False)
     option=db.Column(db.Integer,nullable=False)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
