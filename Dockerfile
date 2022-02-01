@@ -1,5 +1,5 @@
 FROM python:3.8
-WORKDIR /usr/src/app
+WORKDIR /soft
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt -i https://pypi.douban.com/simple

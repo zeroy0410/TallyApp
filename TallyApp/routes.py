@@ -52,7 +52,7 @@ def logout():
 
 cate=[[],['','餐饮','交通','学习','娱乐','其它'],['','工资','奖金','家人','朋友','其它']]
 def getPie(opti):
-    addrs=db.session.query(Data.category,func.sum(Data.cost)).filter_by(option=opti).group_by(Data.category).all()
+    addrs=db.session.query(Data.category,func.sum(Data.cost)).filter_by(option=opti,owner=current_user).group_by(Data.category).all()
     lis=[0,0,0,0,0]
     for addr in addrs:
         lis[addr[0]-1]=float("%.2f" % addr[1])
@@ -175,4 +175,4 @@ def upload():
             db.session.add(data)
             db.session.commit()
         return redirect(url_for('profile'))
-    return render_template('Upload.html',form=form,title="上传Excel xslx文件")
+    return render_template('upload.html',form=form,title="上传Excel xslx文件")
